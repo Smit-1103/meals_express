@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:meals_express/screens/meal_details.dart';
 import 'package:meals_express/widgets/meal_item.dart';
-
+import 'package:lottie/lottie.dart';
 import '../models/meal.dart';
 
 class MealsScreen extends StatelessWidget {
   const MealsScreen({
     super.key,
-    required this.title,
-    required this.meals,
+    this.title,
+    required this.meals, required this.onToggleFavorite,
   });
 
-  final String title;
+  final String? title;
   final List<Meal> meals;
+  final void Function(Meal meal) onToggleFavorite;
+
 
   void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealDetailsScreen(
-          meal: meal,
+          meal: meal, onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
@@ -30,6 +32,14 @@ class MealsScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(
+            width: 180,
+            height: 180,
+            child: Lottie.asset(
+              'assets/images/addData.json',
+              repeat: false,
+            ),
+          ),
           Text(
             'uh ohh... nothing here!',
             style: Theme.of(context).textTheme.headlineLarge!.copyWith(
@@ -61,9 +71,13 @@ class MealsScreen extends StatelessWidget {
       );
     }
 
+    if (title == null) {
+      return content;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title!),
       ),
       body: content,
     );
