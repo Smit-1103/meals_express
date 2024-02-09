@@ -7,8 +7,7 @@ class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal, required this.onSelectMeal});
 
   final Meal meal;
-    final void Function(Meal meal) onSelectMeal;
-
+  final void Function(Meal meal) onSelectMeal;
 
   String get ComplexityText {
     // in this we have converted the first character to upper case and rest of the string in lower case.

@@ -7,8 +7,9 @@ import 'package:meals_express/widgets/category_grid_item.dart';
 import '../models/meal.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.onToggleFavorite, required this.availableMeals});
-  final void Function(Meal meal) onToggleFavorite;
+  const CategoriesScreen(
+      {super.key,
+      required this.availableMeals});
   final List<Meal> availableMeals;
 
 //in the stateless widget the context is not available so we have to pass/get the context from the method
@@ -21,7 +22,6 @@ class CategoriesScreen extends StatelessWidget {
         builder: (ctx) => MealsScreen(
           title: category.title,
           meals: filteredMeals,
-          onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
