@@ -15,25 +15,44 @@ class MealDetailsScreen extends ConsumerWidget {
     final isFavorite = favoriteMeals.contains(meal);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(meal.title),
-        actions: [
-          IconButton(
-            onPressed: () {
-              final wasAdded = ref
-                  .read(favoriteMealsProvider.notifier)
-                  .toggleMealFavoriteStatus(meal);
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(wasAdded ? 'Meal Added!' : 'Meal Removed!'),
+      appBar: AppBar(title: Text(meal.title), actions: [
+        IconButton(
+          onPressed: () {
+            final wasAdded = ref
+                .read(favoriteMealsProvider.notifier)
+                .toggleMealFavoriteStatus(meal);
+            ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(wasAdded ? 'Meal Added!' : 'Meal Removed!'),
+              ),
+            );
+          },
+
+          icon: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            transitionBuilder: (child, animation) {
+              return ScaleTransition(
+                scale: Tween(begin: 0.5, end: 1.2).animate(animation),
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    isFavorite
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.grey,
+                    BlendMode.modulate,
+                  ),
+                  child: child,
                 ),
               );
             },
-            icon: Icon(isFavorite ? Icons.star : Icons.star_border),
+            child: Icon(
+              isFavorite ? Icons.star : Icons.star_border,
+              key: ValueKey(isFavorite),
+              size: 25.0,
+            ),
           ),
-        ],
-      ),
+        ),
+      ]),
       body: SingleChildScrollView(
         child: Card(
           margin: const EdgeInsets.all(16),
