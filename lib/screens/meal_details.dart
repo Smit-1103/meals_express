@@ -28,7 +28,6 @@ class MealDetailsScreen extends ConsumerWidget {
               ),
             );
           },
-
           icon: AnimatedSwitcher(
             duration: const Duration(milliseconds: 500),
             transitionBuilder: (child, animation) {
@@ -52,6 +51,20 @@ class MealDetailsScreen extends ConsumerWidget {
             ),
           ),
         ),
+        // ConfettiButton(
+        //       isFavorite: isFavorite, // Pass your isFavorite variable here
+        //       onPressed: () {
+        //         final wasAdded = ref
+        //             .read(favoriteMealsProvider.notifier)
+        //             .toggleMealFavoriteStatus(meal);
+        //         ScaffoldMessenger.of(context).clearSnackBars();
+        //         ScaffoldMessenger.of(context).showSnackBar(
+        //           SnackBar(
+        //             content: Text(wasAdded ? 'Meal Added!' : 'Meal Removed!'),
+        //           ),
+        //         );
+        //       },
+        //     ),
       ]),
       body: SingleChildScrollView(
         child: Card(
@@ -59,16 +72,18 @@ class MealDetailsScreen extends ConsumerWidget {
           child: Column(
             children: [
               // Image with rounded corners
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  meal.imageUrl,
-                  width: double.infinity,
-                  height: 250,
-                  fit: BoxFit.cover,
+              Hero(
+                tag: meal.id,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    meal.imageUrl,
+                    width: double.infinity,
+                    height: 250,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-
               // Ingredient section
               const SizedBox(height: 14),
               Padding(
