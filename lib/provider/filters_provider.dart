@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals_express/data/dummy_data.dart';
+// import 'package:meals_express/data/dummy_data.dart';
 import 'package:meals_express/provider/meals_provider.dart';
 
 enum Filter { glutenFree, lactoseFree, vegetarian, vegan }
